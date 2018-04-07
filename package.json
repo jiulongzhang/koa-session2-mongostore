@@ -1,0 +1,21 @@
+{
+  "name": "koa-session2-mongostore",
+  "version": "0.0.3",
+  "description": "koa-session2-mongostore",
+  "main": "index.js",
+  "author": "J <jiulong78@gmail.com>",
+  "keywords": [
+    "koa2",
+    "koa",
+    "session",
+    "store",
+    "mongodb"
+  ],
+  "license": "no",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jiulongzhang/koa-session2-mongostore.git"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
