@@ -1,6 +1,6 @@
 {
   "name": "koa-session2-mongostore",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "koa-session2-mongostore",
   "main": "index.js",
   "author": "J <jiulong78@gmail.com>",

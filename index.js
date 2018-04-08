@@ -1,6 +1,7 @@
 /**
  * Created by J<jiulong78@gmail.com> on 2017/4/17.
  * updated 2018/4/1  for mongodb driver 3.x
+ * updated 2018/4/8  change default collection name to "mongod__session"
  */
 
 
@@ -20,7 +21,7 @@ class MongoStore extends Store {
         url,
         dbName,
         options,
-        collName = "__session",
+        collName = "mongod__session",
         maxAge = 2 * 24 * 3600
     }) {
         try {
@@ -68,7 +69,7 @@ class MongoStore extends Store {
             }, {
                 "$set": {
                     "session": session,
-                    "lastAccess": new Date().getTime()
+                    "lastAccess": new Date()
                 }
             }, {
                 upsert: true

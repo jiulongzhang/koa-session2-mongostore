@@ -5,7 +5,9 @@ mongodb store for koa-session2
 ## Require
 
 node v7.x +
+
 mongodb native driver v3.x
+
 ## Install
 ```
 npm install koa-session2-mongostore
@@ -30,5 +32,17 @@ app.use(session({
 ## Options
 - `url`:  required, db url   
 - `dbName`:  required, db name   
-- `collName`: optional, db session collection name,default  "__session"
+- `collName`: optional, db session collection name,default  "mongod__session"
 - `maxAge`: optional, expire time, default 10 \* 24 \* 3600 seconds
+- `options`: optional, db options
+
+## other
+
+if use  fetch ajax api (browser),please with cookies
+
+```js
+await fetch(url, {               
+                credentials: 'include'
+           }),
+            
+```
