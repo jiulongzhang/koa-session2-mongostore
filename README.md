@@ -38,11 +38,9 @@ app.use(session({
 
 ## other
 
-if use  fetch ajax api (browser),please with cookies
+fetch (ajax) api, please with cookies
 
 ```js
-await fetch(url, {               
-                credentials: 'include'
-           }),
+fetch(url, { credentials: 'include'}).then()
             
 ```
