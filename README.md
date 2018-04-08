@@ -1,5 +1,6 @@
 # koa-session2-mongostore
-mongodb store for koa-session2 
+mongodb store for0.04
+ koa-session2 
 
 
 ## Require
@@ -38,11 +39,9 @@ app.use(session({
 
 ## other
 
-if use  fetch ajax api (browser),please with cookies
+fetch (ajax) api, please with cookies
 
 ```js
-await fetch(url, {               
-                credentials: 'include'
-           }),
+fetch(url, { credentials: 'include'}).then()
             
 ```
