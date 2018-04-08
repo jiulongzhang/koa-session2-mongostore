@@ -1,6 +1,5 @@
 # koa-session2-mongostore
-mongodb store for0.04
- koa-session2 
+mongodb store for koa-session2 
 
 
 ## Require
