@@ -6,6 +6,7 @@ mongodb store for koa-session2
 
 node v7.x +
 
+
 mongodb native driver v3.x
 
 ## Install
