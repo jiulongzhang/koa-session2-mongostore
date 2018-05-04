@@ -2,6 +2,7 @@
  * Created by J<jiulong78@gmail.com> on 2017/4/17.
  * updated 2018/4/1  for mongodb driver 3.x
  * updated 2018/4/8  change default collection name to "mongod__session"
+ * updated 2018/5/4  fix bug, if user have activities,delay expire time 
  */
 
 
@@ -22,7 +23,7 @@ class MongoStore extends Store {
         dbName,
         options,
         collName = "mongod__session",
-        maxAge = 2 * 24 * 3600
+        maxAge = 10 * 24 * 3600
     }) {
         try {
             this.client = await mongod.MongoClient.connect(url, options);
@@ -50,10 +51,24 @@ class MongoStore extends Store {
 
     async get(sid) {
         try {
-            let doc = await this.coll.findOne({
+            let session, doc = await this.coll.findOne({
                 sid: sid
             });
-            return doc ? doc.session : undefined;
+            if (doc) {
+                let created = new Date(doc.lastAccess),
+                    now = new Date(),
+                    time = now.getTime() - created.getTime();
+                session = doc.session;
+                //reset expire time per hour 
+                if (time > 3600) {
+                    await this.coll.deleteOne({
+                        "_id": new mongod.ObjectID(doc._id)
+                    });
+                    doc.lastAccess = now;
+                    this.coll.insertOne(doc);
+                }
+            }
+            return session;
         } catch (e) {
             log("koa-session2 mongodb store session find error")
             log(e);
@@ -64,17 +79,24 @@ class MongoStore extends Store {
         sid = this.getID(24)
     }) {
         try {
-            await this.coll.updateOne({
-                "sid": sid
-            }, {
-                "$set": {
+            let doc = await this.coll.findOne({
+                sid: sid
+            });
+            if (doc) {
+                await this.coll.updateOne({
+                    "sid": sid
+                }, {
+                    "$set": {
+                        "session": session
+                    }
+                });
+            } else {
+                await this.coll.insertOne({
+                    "sid": sid,
                     "session": session,
                     "lastAccess": new Date()
-                }
-            }, {
-                upsert: true
-            });
-
+                });
+            }
         } catch (e) {
             log("koa-session2 mongodb store session upsert error")
             log(e);
