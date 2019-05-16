@@ -53,6 +53,6 @@ You should use mongoose.connect() to connect to database before use it
 
 ```js
     const session = require("koa-session2");
-    const Store = require('./Database/session.store');
+    const Store = require('./index.mongoose.js');  
     app.use(session({ store : new Store('user_session') }))
 ```
