@@ -45,3 +45,14 @@ fetch (ajax) api, please with cookies
 fetch(url, { credentials: 'include'}).then()
             
 ```
+
+## Using mongoose
+index.mongoose.js implement the features of koa-session2-mongostore by mongoose
+It's constuctor accept one arguemnt, that is, the collection name you want to use to store sessions.
+You should use mongoose.connect() to connect to database before use it
+
+```js
+    const session = require("koa-session2");
+    const Store = require('./index.mongoose.js');  
+    app.use(session({ store : new Store('user_session') }))
+```
